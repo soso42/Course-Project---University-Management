@@ -1,5 +1,6 @@
 package org.example.beans;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class Course {
     public static final int MAX_STUDENTS = 30;
 
     private Long id;
+    @Getter
     private String name;
     private List<Student> students;
     @Setter
