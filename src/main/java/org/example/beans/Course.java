@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Course {
 
+    public static final int MAX_STUDENTS = 30;
+
     private Long id;
     private String name;
     private List<Student> students;
@@ -28,7 +30,7 @@ public class Course {
 
 
     public void addStudent(Student student) {
-        if (students.size() < 30) {
+        if (students.size() < MAX_STUDENTS) {
             students.add(student);
         }
     }
