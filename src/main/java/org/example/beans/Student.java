@@ -6,13 +6,13 @@ public class Student extends User {
 
     public static final int MAX_COURSES = 10;
 
-    private Long facNumber;
+    private String facNumber;
     private List<Course> courses;
 
 
     public Student() {}
 
-    public Student(Long id, String firstName, String lastName, Long facNumber) {
+    public Student(int id, String firstName, String lastName, String facNumber) {
         super(id, firstName, lastName);
         this.facNumber = facNumber;
     }
