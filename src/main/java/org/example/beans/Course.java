@@ -13,6 +13,7 @@ public class Course {
     private Long id;
     @Getter
     private String name;
+    @Getter
     private List<Student> students;
     @Setter
     private Lector assistant;
@@ -31,10 +32,12 @@ public class Course {
     }
 
 
-    public void addStudent(Student student) {
+    public boolean addStudent(Student student) {
         if (students.size() < MAX_STUDENTS) {
             students.add(student);
+            return true;
         }
+        return false;
     }
 
     public void deleteStudent(Student student) {

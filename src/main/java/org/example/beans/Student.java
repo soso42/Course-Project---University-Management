@@ -1,5 +1,7 @@
 package org.example.beans;
 
+import lombok.Getter;
+
 import java.util.List;
 
 public class Student extends User {
@@ -7,6 +9,7 @@ public class Student extends User {
     public static final int MAX_COURSES = 10;
 
     private String facNumber;
+    @Getter
     private List<Course> courses;
 
 
@@ -18,10 +21,12 @@ public class Student extends User {
     }
 
 
-    public void addCourse(Course course) {
+    public boolean addCourse(Course course) {
         if (courses.size() < MAX_COURSES) {
             courses.add(course);
+            return true;
         }
+        return false;
     }
 
     public void deleteCourse(Course course) {

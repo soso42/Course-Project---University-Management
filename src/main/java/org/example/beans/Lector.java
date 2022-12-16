@@ -13,16 +13,18 @@ public class Lector extends User {
 
     public Lector() {}
 
-    public Lector(Long id, String firstName, String lastName, LectorType lectorType) {
+    public Lector(int id, String firstName, String lastName, LectorType lectorType) {
         super(id, firstName, lastName);
         this.lectorType = lectorType;
     }
 
 
-    public void addCourse(Course course) {
+    public boolean addCourse(Course course) {
         if (courses.size() < MAX_COURSES) {
             courses.add(course);
+            return true;
         }
+        return false;
     }
 
     public void deleteCourse(Course course) {

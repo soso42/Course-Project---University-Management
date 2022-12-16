@@ -57,6 +57,6 @@ public interface UniManagement {
     /*** Remove a student from a course
      * ** @return <code>true</code> only in case the studentwas successfully removed from acourse
      * */
-    public boolean removeStudentFromCourse(Student student,Course course);
+    public boolean removeStudentFromCourse(Student student,Course course) throws StudentNotFoundException;
 
 }
