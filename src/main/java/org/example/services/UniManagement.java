@@ -2,6 +2,7 @@ package org.example.services;
 
 import org.example.beans.Course;
 import org.example.beans.Lector;
+import org.example.beans.LectorType;
 import org.example.beans.Student;
 import org.example.exceptions.CourseNotFoundException;
 import org.example.exceptions.StudentNotFoundException;
@@ -38,6 +39,8 @@ public interface UniManagement {
      * Aighn an assistance to a course** @return <code>true</code> ONLY n case the assistancewas successfully assigned tothe course
      */
     public boolean assignAssistanceToCourse(Lector assistance,Course course);
+
+    public Lector createProfessor(int id, String firstName, String lastName, LectorType lectorType);
 
     /**
      * Assign a professor to a course

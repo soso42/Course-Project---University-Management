@@ -10,6 +10,7 @@ import org.example.exceptions.StudentNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class UniManagementImpl implements UniManagement {
@@ -103,6 +104,13 @@ public class UniManagementImpl implements UniManagement {
     }
 
     @Override
+    public Lector createProfessor(int id, String firstName, String lastName, LectorType lectorType) {
+        Lector lector = new Lector(id, firstName, lastName, lectorType);
+        this.professors.add(lector);
+        return lector;
+    }
+
+    @Override
     public boolean assignProfessorToCourse(Lector professor, Course course) {
         if (!professor.addCourse(course)) {
             return false;
@@ -148,6 +156,34 @@ public class UniManagementImpl implements UniManagement {
         }
         course.deleteStudent(student);
         return true;
+    }
+
+    public Optional<Student> findStudentById(int id) {
+        Student student = null;
+        for (Student value : students) {
+            if (value != null && value.getId() == id) {
+                student = value;
+            }
+        }
+        return Optional.ofNullable(student);
+    }
+
+    public Optional<Course> getCourseByName(String name) {
+        return courses.stream()
+                .filter(c -> c.getName().equals(name))
+                .findFirst();
+    }
+
+    public Optional<Lector> findAssistantById(int id) {
+        return assistants.stream()
+                .filter(a -> a.getId() == id)
+                .findFirst();
+    }
+
+    public Optional<Lector> findProfessorById(int id) {
+        return professors.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst();
     }
 
 }
