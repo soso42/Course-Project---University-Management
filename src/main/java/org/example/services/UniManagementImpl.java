@@ -52,6 +52,11 @@ public class UniManagementImpl implements UniManagement {
 
     @Override
     public Student createStudent(int id, String firstName, String lastName, String facNumber) {
+        for (Student s : students) {
+            if (s != null && s.getId() == id) {
+                throw new RuntimeException("Student with this ID is already registered");
+            }
+        }
         Student student = new Student(id, firstName, lastName, facNumber);
         students[++lastUsedStudentIndex] = student;
         return student;
@@ -84,6 +89,11 @@ public class UniManagementImpl implements UniManagement {
 
     @Override
     public Lector createAssistance(int id, String firstName, String lastName) {
+        for (Lector a: assistants) {
+            if (a.getId() == id) {
+                throw new RuntimeException("Assistant with this ID is already registered");
+            }
+        }
         Lector assistant = new Lector(id, firstName, lastName, LectorType.ASSISTANT);
         this.assistants.add(assistant);
         return assistant;
@@ -105,6 +115,11 @@ public class UniManagementImpl implements UniManagement {
 
     @Override
     public Lector createProfessor(int id, String firstName, String lastName, LectorType lectorType) {
+        for (Lector p: professors) {
+            if (p.getId() == id) {
+                throw new RuntimeException("Professor with this ID is already registered");
+            }
+        }
         Lector lector = new Lector(id, firstName, lastName, lectorType);
         this.professors.add(lector);
         return lector;
