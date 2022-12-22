@@ -2,6 +2,7 @@ package org.example.services;
 
 import org.example.beans.Course;
 import org.example.beans.Student;
+import org.example.exceptions.CourseNotFoundException;
 import org.example.exceptions.StudentNotFoundException;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,30 @@ class UniManagementImplTest {
     }
 
     @Test
-    void testCreateStudent() throws NoSuchFieldException, IllegalAccessException {
+    void deleteCourse_happyPath() throws NoSuchFieldException, CourseNotFoundException, IllegalAccessException {
+        // Given
+        Field field = uniManagement.getClass().getDeclaredField("courses");
+        field.setAccessible(true);
+        uniManagement.createCourse("Java");
+        // When
+        uniManagement.deleteCourse("Java");
+        List<Course> courses = (List<Course>) field.get(uniManagement);
+        // Given
+        assertEquals(0, courses.size());
+    }
+
+    @Test
+    void deleteCourse_exception() {
+        // Given
+        // When
+        // Then
+        assertThrows(CourseNotFoundException.class, () -> {
+            uniManagement.deleteCourse("Java");
+        });
+    }
+
+    @Test
+    void testCreateStudent_happyPath() throws NoSuchFieldException, IllegalAccessException {
         // Given
         Field field = uniManagement.getClass().getDeclaredField("lastUsedStudentIndex");
         field.setAccessible(true);
@@ -50,6 +74,17 @@ class UniManagementImplTest {
         int finalNumOfStudents = field.getInt(uniManagement);
         // Then
         assertEquals(initialNumOfStudents + 1, finalNumOfStudents);
+    }
+
+    @Test
+    void testCreateStudent_exception() throws NoSuchFieldException, IllegalAccessException {
+        // Given
+        uniManagement.createStudent(1, "John", "Doe", "CS101");
+        // When
+        // Then
+        assertThrows(RuntimeException.class, () -> {
+            uniManagement.createStudent(1, "John", "Doe", "CS101");
+        });
     }
 
     @Test
