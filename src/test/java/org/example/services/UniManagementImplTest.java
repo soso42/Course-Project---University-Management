@@ -1,11 +1,13 @@
 package org.example.services;
 
+import org.example.beans.Course;
 import org.example.beans.Student;
 import org.example.exceptions.StudentNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +15,29 @@ class UniManagementImplTest {
 
     private final UniManagementImpl uniManagement = new UniManagementImpl();
 
+
+    @Test
+    void createCourse_HappyPath() throws NoSuchFieldException, IllegalAccessException {
+        // Given
+        Field field = uniManagement.getClass().getDeclaredField("courses");
+        field.setAccessible(true);
+        // When
+        uniManagement.createCourse("Java");
+        List<Course> courses = (List<Course>) field.get(uniManagement);
+        // Then
+        assertEquals(1, courses.size());
+    }
+
+    @Test
+    void createCourse_exception() {
+        // Given
+        uniManagement.createCourse("Java");
+        // When
+        // Then
+        assertThrows(RuntimeException.class, () -> {
+            uniManagement.createCourse("Java");
+        });
+    }
 
     @Test
     void testCreateStudent() throws NoSuchFieldException, IllegalAccessException {
